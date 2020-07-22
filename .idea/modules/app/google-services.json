@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "1081043983806",
+    "firebase_url": "https://urban-sisters-92a96.firebaseio.com",
+    "project_id": "urban-sisters-92a96",
+    "storage_bucket": "urban-sisters-92a96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081043983806:android:d4c974d4bc998a5cdf6def",
+        "android_client_info": {
+          "package_name": "ke.co.urbansisters"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081043983806-hpr89rk2gmjftpecu96t12atruqiqtem.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ke.co.urbansisters",
+            "certificate_hash": "7f64d23469a75b4831a0e66b2d75959d81a3665c"
+          }
+        },
+        {
+          "client_id": "1081043983806-oi1fsgr4poph762jb9ini72eam65vps1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqcaT6_DvARG7mMAzVF5Z0AGtA52ZdlhU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081043983806-oi1fsgr4poph762jb9ini72eam65vps1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081043983806:android:4496adf4a48daf20df6def",
+        "android_client_info": {
+          "package_name": "ke.co.urbansisters.ui.auth.fragments"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081043983806-t8b7cs65ddi83hh8n5ttqgn0bohb5q4d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ke.co.urbansisters.ui.auth.fragments",
+            "certificate_hash": "7f64d23469a75b4831a0e66b2d75959d81a3665c"
+          }
+        },
+        {
+          "client_id": "1081043983806-oi1fsgr4poph762jb9ini72eam65vps1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqcaT6_DvARG7mMAzVF5Z0AGtA52ZdlhU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081043983806-oi1fsgr4poph762jb9ini72eam65vps1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

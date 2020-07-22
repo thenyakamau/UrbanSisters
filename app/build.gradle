@@ -1,0 +1,130 @@
+apply plugin: 'com.android.application'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+    mavenCentral()
+}
+
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.gms.google-services'
+
+ext.versionMajor = 1
+ext.versionMinor = 2
+ext.versionPatch = 0
+ext.versionClassifier = null
+ext.isSnapshot = false
+ext.minimumSdkVersion = 19
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "ke.co.urbansisters"
+        minSdkVersion 18
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+
+}
+
+dependencies {
+
+
+    final RETROFIT_VERSION = '2.4.0'
+    final SUPPORT_LIBRARY_VERSION = '1.0.0'
+    def lifecycle_version = '2.1.0-alpha03'
+    def rxjava_version = '2.1.1'
+    def rxcalladapter_version = '2.5.0'
+    def reactivestreams_version = "1.1.1"
+    final BUTTERKNIFE_VERSION = '10.1.0'
+
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+
+    implementation 'com.google.firebase:firebase-database:19.3.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation "androidx.cardview:cardview:$SUPPORT_LIBRARY_VERSION"
+
+
+    /*RETROFIT Dependencies*/
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rxcalladapter_version"
+    // Retrofit call adapter
+    implementation "com.squareup.retrofit2:adapter-rxjava:$RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    implementation("com.squareup.retrofit2:retrofit:$RETROFIT_VERSION") {
+        exclude module: 'okhttp'
+    }
+
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxandroid:$rxjava_version"
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+
+    /*okhttp3 dependencies*/
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.7.0'
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    // Reactive Streams (convert Observable to LiveData)
+    implementation "android.arch.lifecycle:reactivestreams:$reactivestreams_version"
+
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+
+    implementation 'com.google.android.material:material:1.1.0'
+
+    /*ButterKnife */
+    implementation "com.jakewharton:butterknife:$BUTTERKNIFE_VERSION"
+    kapt "com.jakewharton:butterknife-compiler:$BUTTERKNIFE_VERSION"
+
+    /*Glide */
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.7.1'
+
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-4'
+
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+
+    //Lottie animations
+    implementation 'com.airbnb.android:lottie:3.1.0'
+
+    //FireBase
+    implementation 'com.google.firebase:firebase-analytics:17.4.4'
+    implementation 'com.google.firebase:firebase-auth:19.3.2'
+    implementation 'com.google.firebase:firebase-firestore:21.5.0'
+
+    implementation 'com.android.support:multidex:1.0.3'
+
+}
+
+
+kapt {
+    generateStubs = true
+}
