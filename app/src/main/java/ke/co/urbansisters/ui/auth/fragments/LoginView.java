@@ -62,7 +62,7 @@ public class LoginView extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Creating user");
+        progressDialog.setMessage("Loading user");
         progressDialog.setCancelable(false);
     }
 
@@ -71,22 +71,19 @@ public class LoginView extends Fragment {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        progressDialog.show();
+
         if(currentUser!=null) {
+            progressDialog.show();
             FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     progressDialog.dismiss();
-                    String name = (String) snapshot.child("name").getValue();
-                    String email1 = (String) snapshot.child("email").getValue();
-                    String phone = (String) snapshot.child("phone").getValue();
                     String type = (String) snapshot.child("type").getValue();
-                    User savedUser = new User(name, email1, phone, type);
 
                     if(type != null&&type.equals("buyer")){
-                        authInterface.goToBuyerDashBoard(savedUser);
+                        authInterface.goToBuyerDashBoard();
                     }else{
-                        authInterface.goToSellerDashBoard(savedUser);
+                        authInterface.goToSellerDashBoard();
                     }
                 }
 
@@ -132,9 +129,9 @@ public class LoginView extends Fragment {
                                 User savedUser = new User(name, email1, phone, type);
 
                                 if(type != null&&type.equals("buyer")){
-                                    authInterface.goToBuyerDashBoard(savedUser);
+                                    authInterface.goToBuyerDashBoard();
                                 }else{
-                                    authInterface.goToSellerDashBoard(savedUser);
+                                    authInterface.goToSellerDashBoard();
                                 }
                             }
 

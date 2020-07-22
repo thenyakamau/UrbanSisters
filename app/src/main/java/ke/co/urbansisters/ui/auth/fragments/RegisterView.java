@@ -92,7 +92,7 @@ public class RegisterView extends Fragment {
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
-                    progressDialog.dismiss();
+
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "createUserWithEmail:success");
@@ -101,12 +101,14 @@ public class RegisterView extends Fragment {
                        User saveUser = new User(name, email, phone, userType);
                         FirebaseDatabase.getInstance().getReference("Users").child(Objects.requireNonNull(mAuth.getUid())).setValue(saveUser).addOnCompleteListener(task1 -> {
                             if(task1.isSuccessful()) {
+                                progressDialog.dismiss();
                                 if(saveUser.getType().equals("buyer")) {
-                                    authInterface.goToBuyerDashBoard(saveUser);
+                                    authInterface.goToBuyerDashBoard();
                                 }else {
-                                    authInterface.goToSellerDashBoard(saveUser);
+                                    authInterface.goToSellerDashBoard();
                                 }
                             }else {
+                                progressDialog.dismiss();
                                 Log.d(TAG, "register: registration failure");
                             }
                         });

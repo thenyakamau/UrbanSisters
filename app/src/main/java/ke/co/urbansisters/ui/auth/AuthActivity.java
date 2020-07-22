@@ -13,6 +13,7 @@ import java.io.Serializable;
 import butterknife.ButterKnife;
 import ke.co.urbansisters.R;
 import ke.co.urbansisters.models.User;
+import ke.co.urbansisters.ui.admin.SellerDashBoardActivity;
 import ke.co.urbansisters.ui.auth.fragments.AuthInterface;
 import ke.co.urbansisters.ui.auth.fragments.LoginView;
 import ke.co.urbansisters.ui.auth.fragments.RegisterView;
@@ -53,15 +54,14 @@ public class AuthActivity extends AppCompatActivity implements AuthInterface {
     }
 
     @Override
-    public void goToBuyerDashBoard(User user) {
-        Intent intent = new Intent(this, DashBoardActivity.class);
-        intent.putExtra("user", (Serializable) user);
-        startActivity(intent);
+    public void goToBuyerDashBoard() {
+
+        startActivity(new Intent(this, DashBoardActivity.class));
     }
 
     @Override
-    public void goToSellerDashBoard(User user) {
-
+    public void goToSellerDashBoard() {
+        startActivity(new Intent(this, SellerDashBoardActivity.class));
     }
 
 

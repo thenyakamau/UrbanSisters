@@ -5,4 +5,5 @@ public interface SellersInterface {
     void goTOAddProduct();
     void goToViewProducts();
     void goToProfile();
+    void logOut();
 }
