@@ -1,4 +1,4 @@
-package ke.co.urbansisters.ui.admin.fragments;
+package ke.co.urbansisters.ui.dashboard.fragments;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -26,7 +26,7 @@ import butterknife.OnClick;
 import ke.co.urbansisters.R;
 import ke.co.urbansisters.models.User;
 
-public class ProfileFragment extends Fragment {
+public class UserProfile extends Fragment {
 
     @BindView(R.id._profile_name)
     EditText profile_name;
@@ -40,10 +40,10 @@ public class ProfileFragment extends Fragment {
     private User user;
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
-    private SellersInterface sellersInterface;
+    private UserInterface userInterface;
 
-    public ProfileFragment(SellersInterface sellersInterface, FirebaseAuth mAuth) {
-        this.sellersInterface = sellersInterface;
+    public UserProfile(UserInterface userInterface, FirebaseAuth mAuth) {
+        this.userInterface = userInterface;
         this.mAuth = mAuth;
     }
 
@@ -87,6 +87,6 @@ public class ProfileFragment extends Fragment {
     }
     @OnClick(R.id.profile_sign_out)
     void signOut() {
-        sellersInterface.logOut();
+        userInterface.logOut();
     }
 }

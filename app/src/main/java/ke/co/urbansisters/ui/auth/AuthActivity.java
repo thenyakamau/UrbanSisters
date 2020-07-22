@@ -57,11 +57,13 @@ public class AuthActivity extends AppCompatActivity implements AuthInterface {
     public void goToBuyerDashBoard() {
 
         startActivity(new Intent(this, DashBoardActivity.class));
+        this.finish();
     }
 
     @Override
     public void goToSellerDashBoard() {
         startActivity(new Intent(this, SellerDashBoardActivity.class));
+        this.finish();
     }
 
 

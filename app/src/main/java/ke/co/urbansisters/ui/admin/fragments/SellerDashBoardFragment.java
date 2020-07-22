@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ke.co.urbansisters.R;
 
 public class SellerDashBoardFragment extends Fragment {
@@ -28,7 +30,13 @@ public class SellerDashBoardFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_seller_dashboard, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         return view;
     }
+
+    @OnClick(R.id.floating_action_button_dashboard)
+    void addProduct() {
+        sellersInterface.goTOAddProduct();
+    }
+
 }

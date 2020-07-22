@@ -8,22 +8,20 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
-import com.google.android.material.bottomnavigation.BottomNavigationMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import ke.co.urbansisters.R;
-import ke.co.urbansisters.models.User;
+import ke.co.urbansisters.ui.admin.fragments.AddProduct;
 import ke.co.urbansisters.ui.admin.fragments.ProfileFragment;
 import ke.co.urbansisters.ui.admin.fragments.SellerDashBoardFragment;
 import ke.co.urbansisters.ui.admin.fragments.SellersInterface;
+import ke.co.urbansisters.ui.admin.fragments.ViewSellerProductsFragment;
 import ke.co.urbansisters.ui.auth.AuthActivity;
 
 public class SellerDashBoardActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener , SellersInterface {
@@ -35,6 +33,8 @@ public class SellerDashBoardActivity extends AppCompatActivity implements Bottom
     private FirebaseAuth mAuth;
     private ProfileFragment profileFragment;
     private SellerDashBoardFragment dashBoardFragment;
+    private AddProduct addProduct;
+    private ViewSellerProductsFragment productsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,8 @@ public class SellerDashBoardActivity extends AppCompatActivity implements Bottom
 
         profileFragment = new ProfileFragment(this, mAuth);
         dashBoardFragment = new SellerDashBoardFragment(this, mAuth);
+        addProduct = new AddProduct(mAuth, this);
+        productsFragment = new ViewSellerProductsFragment(this, mAuth);
         setFragment(dashBoardFragment);
 
     }
@@ -64,6 +66,9 @@ public class SellerDashBoardActivity extends AppCompatActivity implements Bottom
             case R.id._seller_dashboard:
                 setFragment(dashBoardFragment);
                 return true;
+            case R.id._seller_products:
+                setFragment(productsFragment);
+                return true;
             case R.id._sellers_profile:
                 setFragment(profileFragment);
                 return true;
@@ -74,12 +79,12 @@ public class SellerDashBoardActivity extends AppCompatActivity implements Bottom
 
     @Override
     public void goToDashBoard() {
-
+        setFragment(dashBoardFragment);
     }
 
     @Override
     public void goTOAddProduct() {
-
+        setFragment(addProduct);
     }
 
     @Override
