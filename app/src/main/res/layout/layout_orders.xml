@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+       <com.google.android.material.button.MaterialButton
+           android:layout_weight="1"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           style="@style/Widget.MaterialComponents.Button.TextButton"
+           android:text="Pending"
+           android:id="@+id/_pending_orders_btn"/>
+       <View
+
+           android:layout_width="1dp"
+           android:layout_height="match_parent"
+           android:background="?android:attr/listDivider" />
+       <com.google.android.material.button.MaterialButton
+           android:layout_weight="1"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           style="@style/Widget.MaterialComponents.Button.TextButton"
+           android:text="Complete"
+           android:id="@+id/_complete_orders_btn"/>
+   </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/_orders_frame_layout"/>
+
+</LinearLayout>

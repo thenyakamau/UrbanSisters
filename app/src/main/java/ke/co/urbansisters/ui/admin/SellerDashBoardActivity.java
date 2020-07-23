@@ -18,6 +18,8 @@ import butterknife.ButterKnife;
 
 import ke.co.urbansisters.R;
 import ke.co.urbansisters.ui.admin.fragments.AddProduct;
+import ke.co.urbansisters.ui.admin.fragments.OrdersFragment;
+import ke.co.urbansisters.ui.admin.fragments.PendingOrdersFragment;
 import ke.co.urbansisters.ui.admin.fragments.ProfileFragment;
 import ke.co.urbansisters.ui.admin.fragments.SellerDashBoardFragment;
 import ke.co.urbansisters.ui.admin.fragments.SellersInterface;
@@ -35,6 +37,7 @@ public class SellerDashBoardActivity extends AppCompatActivity implements Bottom
     private SellerDashBoardFragment dashBoardFragment;
     private AddProduct addProduct;
     private ViewSellerProductsFragment productsFragment;
+    private PendingOrdersFragment ordersFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class SellerDashBoardActivity extends AppCompatActivity implements Bottom
         dashBoardFragment = new SellerDashBoardFragment(this, mAuth);
         addProduct = new AddProduct(mAuth, this);
         productsFragment = new ViewSellerProductsFragment(this, mAuth);
+        ordersFragment = new PendingOrdersFragment( mAuth);
         setFragment(dashBoardFragment);
 
     }
@@ -71,6 +75,9 @@ public class SellerDashBoardActivity extends AppCompatActivity implements Bottom
                 return true;
             case R.id._sellers_profile:
                 setFragment(profileFragment);
+                return true;
+            case R.id._seller_orders:
+                setFragment(ordersFragment);
                 return true;
             default:
                 return true;

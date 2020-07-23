@@ -1,8 +1,7 @@
-package ke.co.urbansisters.ui.dashboard.fragments;
+package ke.co.urbansisters.ui.admin.fragments;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,28 +29,23 @@ import ke.co.urbansisters.R;
 import ke.co.urbansisters.models.Orders;
 import ke.co.urbansisters.ui.dashboard.fragments.adapters.TransactionsAdapter;
 
-public class TransactionsFragments extends Fragment {
+public class PendingOrdersFragment extends Fragment  {
+    @BindView(R.id._status_recycler_view)
+    RecyclerView statusRecyclerView;
 
-    private static final String TAG = "SellerFragment";
-
-    @BindView(R.id._transactions_recycler_view)
-    RecyclerView transRecyclerView;
-
-    private UserInterface userInterface;
-    private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
-    private List<Orders>orders =new ArrayList<>();
+    private FirebaseAuth mAuth;
+    private List<Orders> orders = new ArrayList<>();
     private TransactionsAdapter transactionsAdapter;
 
-    public TransactionsFragments(UserInterface userInterface, FirebaseAuth mAuth) {
-        this.userInterface = userInterface;
+    public PendingOrdersFragment(FirebaseAuth mAuth) {
         this.mAuth = mAuth;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_transaction, container, false);
+        View view = inflater.inflate(R.layout.layout_orders_status, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -59,8 +53,9 @@ public class TransactionsFragments extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        transRecyclerView.setHasFixedSize(true);
-        transRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        statusRecyclerView.setHasFixedSize(true);
+        statusRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Loading");
@@ -68,12 +63,14 @@ public class TransactionsFragments extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
+        orders.clear();
+
         FirebaseDatabase.getInstance().getReference("Orders").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 progressDialog.dismiss();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                    Log.d(TAG, "onDataChange: " + snapshot1);
+
 
                     String name = Objects.requireNonNull(snapshot1.child("name").getValue()).toString();
                     String category = Objects.requireNonNull(snapshot1.child("category").getValue()).toString();
@@ -82,13 +79,13 @@ public class TransactionsFragments extends Fragment {
                     String sellerId = Objects.requireNonNull(snapshot1.child("sellerId").getValue()).toString();
                     String buyerId = Objects.requireNonNull(snapshot1.child("buyerId").getValue()).toString();
 
-                    if (buyerId.equals(mAuth.getUid())) {
+                    if (sellerId.equals(mAuth.getUid())&&status.equals("pending")) {
                         Orders order = new Orders(name, image, category, status, sellerId, buyerId);
                         orders.add(order);
                     }
 
                 }
-                Log.d(TAG, "onDataChange: " + orders);
+
                 addOrders(orders);
             }
 
@@ -99,10 +96,8 @@ public class TransactionsFragments extends Fragment {
             }
         });
     }
-
     private void addOrders(List<Orders> orders) {
         transactionsAdapter = new TransactionsAdapter(orders, getContext());
-        transRecyclerView.setAdapter(transactionsAdapter);
+        statusRecyclerView.setAdapter(transactionsAdapter);
     }
-
 }

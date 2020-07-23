@@ -69,4 +69,28 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyRecy
 
     }
 
+    public static class PendingTransactions extends RecyclerView.Adapter<PendingTransactions.RecyclerViewHolder> {
+
+        @NonNull
+        @Override
+        public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return null;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return 0;
+        }
+
+        public class RecyclerViewHolder extends RecyclerView.ViewHolder {
+            public RecyclerViewHolder(@NonNull View itemView) {
+                super(itemView);
+            }
+        }
+    }
 }

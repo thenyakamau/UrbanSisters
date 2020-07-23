@@ -26,6 +26,7 @@ import ke.co.urbansisters.models.User;
 import ke.co.urbansisters.ui.auth.AuthActivity;
 import ke.co.urbansisters.ui.dashboard.fragments.CartFragment;
 import ke.co.urbansisters.ui.dashboard.fragments.DashBoardFragment;
+import ke.co.urbansisters.ui.dashboard.fragments.TransactionsFragments;
 import ke.co.urbansisters.ui.dashboard.fragments.UserInterface;
 import ke.co.urbansisters.ui.dashboard.fragments.UserProfile;
 
@@ -39,6 +40,7 @@ public class DashBoardActivity extends AppCompatActivity implements UserInterfac
     private FirebaseAuth mAuth;
     private DashBoardFragment dashBoardFragment;
     private UserProfile userProfile;
+    private TransactionsFragments transactionsFragments;
     private List<Product> cartProducts = new ArrayList<>();
 
     @Override
@@ -51,6 +53,7 @@ public class DashBoardActivity extends AppCompatActivity implements UserInterfac
 
         dashBoardFragment = new DashBoardFragment(this, mAuth);
         userProfile = new UserProfile(this, mAuth);
+        transactionsFragments = new TransactionsFragments(this, mAuth);
 
         setFragment(dashBoardFragment);
 
@@ -106,6 +109,10 @@ public class DashBoardActivity extends AppCompatActivity implements UserInterfac
                return true;
            case R.id._user_cart:
                goToCart();
+               return true;
+           case R.id._user_transactions:
+               setFragment(transactionsFragments);
+               return true;
            default:
                return true;
        }
