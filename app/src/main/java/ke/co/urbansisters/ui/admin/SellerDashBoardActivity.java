@@ -101,5 +101,6 @@ public class SellerDashBoardActivity extends AppCompatActivity implements Bottom
     public void logOut() {
         mAuth.signOut();
         startActivity(new Intent(this, AuthActivity.class));
+        this.finish();
     }
 }

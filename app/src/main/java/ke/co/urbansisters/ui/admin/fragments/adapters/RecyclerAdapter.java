@@ -38,14 +38,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyRecy
     @Override
     public void onBindViewHolder(@NonNull MyRecyclerViewHolder holder, int position) {
 
-        for (int i=0; i<products.size(); i++) {
-           Product product = products.get(i);
+           Product product = products.get(position);
            holder.productName.setText(product.getName());
             holder.productCategory.setText(product.getCategory());
             holder.productQuantity.setText(product.getQuantity());
             holder.productPrice.setText(product.getAmount());
             Glide.with(context).load(product.getImage()).into(holder.productImage);
-        }
+
 
     }
 

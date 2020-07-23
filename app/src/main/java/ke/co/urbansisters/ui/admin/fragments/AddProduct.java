@@ -9,8 +9,11 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +27,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -45,8 +50,10 @@ public class AddProduct extends Fragment {
     ImageView addProductImage;
     @BindView(R.id._add_product_name)
     EditText addProductName;
-    @BindView(R.id._add_product_category)
-    EditText addProductCategory;
+//    @BindView(R.id._add_product_category)
+//    EditText addProductCategory;
+    @BindView(R.id._add_product_category_spinner)
+    Spinner categorySpinner;
     @BindView(R.id._add_product_brand)
     EditText addProductBrand;
     @BindView(R.id._add_product_description)
@@ -60,6 +67,7 @@ public class AddProduct extends Fragment {
     private SellersInterface sellersInterface;
     private ProgressDialog progressDialog;
     private Uri filePath;
+    private String productCategory;
 
     public AddProduct(FirebaseAuth mAuth, SellersInterface sellersInterface) {
         this.mAuth = mAuth;
@@ -81,6 +89,29 @@ public class AddProduct extends Fragment {
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Adding product");
         progressDialog.setCancelable(false);
+
+        List<String> categories = new ArrayList<>();
+        categories.add("Clip-in Hair");
+        categories.add("Tape-In Hair");
+        categories.add("Sew-In Hair");
+        categories.add("Fusion & Pre-Bonded Hair");
+        categories.add("Microlink Hair");
+        categories.add("Wigs & Hair Pieces");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), android.R.layout.simple_spinner_item, categories);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(dataAdapter);
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                productCategory = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
     }
 
     @OnClick(R.id._add_product_image)
@@ -137,42 +168,37 @@ public class AddProduct extends Fragment {
                         "images/upload/"
                                 + UUID.randomUUID().toString());
         String productName = addProductName.getText().toString();
-        String productCategory = addProductCategory.getText().toString();
+
         String productBrand = addProductBrand.getText().toString();
         String productDescription = addProductDescription.getText().toString();
         String productQuantity = addProductQuantity.getText().toString();
         String productAmount = addProductAmount.getText().toString();
         ref.putFile(filePath)
                 .addOnSuccessListener(taskSnapshot -> {
-                    taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            Product product = new Product(productName, productCategory, productBrand, productAmount, productQuantity, productDescription, mAuth.getUid(), uri.toString());
-                            FirebaseDatabase.getInstance().getReference("Products").setValue(product).addOnCompleteListener(task -> {
-                                if (task.isSuccessful()) {
-                                    progressDialog.dismiss();
-                                    Toast.makeText(getContext(), "Product has been added", Toast.LENGTH_SHORT).show();
-                                    sellersInterface.goToDashBoard();
-                                } else {
-                                    progressDialog.dismiss();
-                                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
+                    taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(uri -> {
+                        Product product = new Product(productName, productCategory, productBrand, productAmount, productQuantity, productDescription, mAuth.getUid(), uri.toString());
+                        FirebaseDatabase.getInstance().getReference("Products").child(UUID.randomUUID().toString()).setValue(product).addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                progressDialog.dismiss();
+                                Toast.makeText(getContext(), "Product has been added", Toast.LENGTH_SHORT).show();
+                                sellersInterface.goToDashBoard();
+                            } else {
+                                progressDialog.dismiss();
+                                Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     });
                 })
                 .addOnFailureListener(exception -> {
                     progressDialog.dismiss();
                     Toast.makeText(getContext(), "Could not upload image", Toast.LENGTH_SHORT).show();
                 });
-//        FirebaseDatabase.getInstance().getReference("Products").child(Objects.requireNonNull(mAuth.getUid())).setValue()
     }
 
     Boolean validate() {
         boolean valid = true;
         String productName = addProductName.getText().toString();
         String productAmount = addProductAmount.getText().toString();
-        String productCategory = addProductCategory.getText().toString();
         String productBrand = addProductBrand.getText().toString();
         String productDescription = addProductDescription.getText().toString();
         String productQuantity = addProductQuantity.getText().toString();
@@ -197,10 +223,8 @@ public class AddProduct extends Fragment {
         }
 
         if (productCategory.isEmpty()) {
-            addProductCategory.setError("Input Category");
+            Toast.makeText(getContext(), "Please pick a Category", Toast.LENGTH_SHORT).show();
             valid = false;
-        } else {
-            addProductCategory.setError(null);
         }
 
         if (productQuantity.isEmpty()) {

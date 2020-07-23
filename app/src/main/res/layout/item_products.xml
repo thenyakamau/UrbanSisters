@@ -45,16 +45,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-
                     android:layout_marginTop="5dp"
-                    android:text="Name"
+                    android:text="Name:"
                     android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/_item_product_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="0.5"
                     android:text="Name"
@@ -73,14 +72,14 @@
                     android:layout_marginStart="10dp"
 
                     android:layout_marginTop="5dp"
-                    android:text="Category"
+                    android:text="Category:"
                     android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/_item_product_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:text="category"
                     android:textSize="15sp" />
@@ -106,16 +105,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-
                     android:layout_marginTop="5dp"
-                    android:text="Price"
+                    android:text="Price:"
                     android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/_item_product_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="0.5"
                     android:text="price"
@@ -134,14 +132,14 @@
                     android:layout_marginStart="10dp"
 
                     android:layout_marginTop="5dp"
-                    android:text="Quantity"
+                    android:text="Quantity:"
                     android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/_item_product_quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:text="quantity"
                     android:textSize="15sp" />

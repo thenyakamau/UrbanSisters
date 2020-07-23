@@ -17,7 +17,7 @@
         android:icon="@drawable/ic_orders"/>
 
     <item
-        android:id="@+id/__profile"
+        android:id="@+id/_user_profile"
         android:title="Profile"
         android:icon="@drawable/ic_user"/>
 </menu>
